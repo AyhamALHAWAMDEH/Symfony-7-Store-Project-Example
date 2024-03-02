@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category
+{% endblock %}
+
+{% block body %}
+
+	<style>
+		a {
+			color: #491C52;
+			text-decoration: none;
+		}
+	</style>
+
+	<div class="container my-3 py-3">
+		<h1>Category</h1>
+
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Id</th>
+					<td>{{ category.id }}</td>
+
+				</tr>
+				<tr>
+					<th>CategoryName</th>
+					<td>{{ category.categoryName }}</td>
+				</tr>
+				<tr>
+					<th>CategoryImage</th>
+					<td><img src="{{asset('uploads/'~category.categoryImage)}}" alt="" width="80"></td>
+
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="d-flex align-items-center">
+			<a href="{{ path('app_category_crud_index') }}">
+				<i class="fas fa-reply"></i>back to list</a>
+
+			<a href="{{ path('app_category_crud_edit', {'id': category.id}) }}" class="mx-5" data-toggle="tooltip" data-placement="top" title="Edit">
+				<i class="fas fa-edit"></i>
+			</a>
+			{{ include('category_crud/_delete_form.html.twig') }}
+		</div>
+
+
+	</div>
+
+{% endblock %}

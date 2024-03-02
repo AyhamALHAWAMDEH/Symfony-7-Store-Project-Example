@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product index
+{% endblock %}
+
+{% block body %}
+
+	<style>
+		a {
+			color: #491C52;
+			text-decoration: none;
+		}
+
+		.btn-new {
+			background-color: #EEE029;
+			color: #491C52;
+			border: none;
+			font-weight: 700;
+			padding: 10px 20px;
+		}
+
+		.btn-new:hover {
+			background-color: #491C52;
+			color: #EEE029;
+		}
+
+		.scrollable-table {
+			overflow-x: auto;
+			max-width: 100%;
+			white-space: nowrap;
+		}
+	</style>
+
+	<div class="container my-3 py-3">
+		<h1>Product index</h1>
+		<div class="scrollable-table">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Product Name</th>
+						<th>Product Price</th>
+						<th>Product Image</th>
+						<th>Short Description</th>
+						<th>Long Description</th>
+						<th>Product Brand</th>
+						<th>Product Origin</th>
+						<th>Type of Offer</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for product in products %}
+						<tr>
+							<td>{{ product.id }}</td>
+							<td>{{ product.productName }}</td>
+							<td>{{ product.productPrice }}</td>
+							<td><img src="{{asset('uploads/'~product.productImage)}}" alt="" width="80"></td>
+							<td>{{ product.shortDescription }}</td>
+							<td>{{ product.longDescription | raw }}</td>
+							<td>{{ product.productBrand }}</td>
+							<td>{{ product.productOrigin }}</td>
+							<td>{{ product.offer }}</td>
+							<td>
+								<a href="{{ path('app_product_crud_show', {'id': product.id}) }}" data-toggle="tooltip" data-placement="top" title="Show">
+									<i class="far fa-eye"></i>
+								</a>
+								<a href="{{ path('app_product_crud_edit', {'id': product.id}) }}" class="mx-2" data-toggle="tooltip" data-placement="top" title="Edit">
+									<i class="fas fa-edit"></i>
+								</a>
+								
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="10">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<a href="{{ path('app_product_crud_new') }}" class="btn btn-primary btn-new btn-lg btn-sm mt-3">Create new</a>
+	</div>
+{% endblock %}

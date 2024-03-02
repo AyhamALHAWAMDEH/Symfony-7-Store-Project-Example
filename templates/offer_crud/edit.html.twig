@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Offer
+{% endblock %}
+
+{% block body %}
+	<style>
+
+		a {
+			color: #491C52;
+			text-decoration: none;
+			margin-right: 30px;
+		}
+	</style>
+
+	<div class="container my-3 py-3">
+		<h1>Edit Offer</h1>
+
+		{{ include('offer_crud/_form.html.twig', {'button_label': 'Update'}) }}
+		<div class="d-flex align-items-center">
+			<a href="{{ path('app_offer_crud_index') }}">
+				<i class="fas fa-reply"></i>back to list</a>
+
+			{{ include('offer_crud/_delete_form.html.twig') }}
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cart
+{% endblock %}
+
+{% block body %}
+
+	<style>
+		.btn-shopping {
+			background-color: #EEE029;
+			color: #491C52;
+			border: none;
+			font-weight: 700;
+			padding: 10px 20px;
+		}
+
+		.btn-shopping:hover {
+			background-color: #491C52;
+			color: #EEE029;
+		}
+	</style>
+
+	{% if cartItems is empty %}
+		<div class="container text-center mt-3 py-3">
+			<img src="/images/empty-cart.gif" alt="Empty Cart" class="mb-4" width="150px">
+			<p>Your shopping cart is empty</p>
+			<p class="mb-4">Looks like you haven't yet made your choice. Need inspiration?</p>
+			<a href="{{ path('app_products') }}" class="btn btn-primary btn-shopping">Do my shopping</a>
+		</div>
+	{% else %}
+
+		<div class="container mt-3 py-3">
+			<h3>Your Cart</h3>
+
+			<div class="table-responsive mb-3">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Product Name</th>
+							<th>Quantity</th>
+							<th>Price</th>
+							<th>Discounted Price</th>
+							<th>Total</th>
+							<th>Total After Discount</th>
+							<th colspan="3">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% set totalDiscountedPrice = 0 %}
+						{% for cartItem in cartItems %}
+							<tr>
+								<td>{{ cartItem.product.productName }}</td>
+								<td>{{ cartItem.quantity }}</td>
+								<td>{{ cartItem.product.productPrice }}€</td>
+								<td>{{ cartItem.product.getPriceAfterDiscount() }}€</td>
+								<td>{{ cartItem.product.productPrice * cartItem.quantity }}€</td>
+								<td>{{ cartItem.product.getPriceAfterDiscount() * cartItem.quantity }}€</td>
+								<td>
+									<button class="btn btn-success btn-sm" onclick="adjustQuantity('increment', {{ cartItem.product.id }})">
+										<i class="bi bi-cart-plus"></i>
+									</button>
+								</td>
+								<td>
+									<button class="btn btn-warning btn-sm" onclick="adjustQuantity('decrement', {{ cartItem.product.id }})">
+										<i class="bi bi-cart-dash"></i>
+									</button>
+								</td>
+								<td>
+									<form method="post" action="{{ path('app_cart_remove', {'productId': cartItem.product.id}) }}" class="ajax-form">
+										<button type="submit" class="btn btn-danger btn-sm" title="Remove from Cart">
+											<i class="bi bi-cart-x"></i>
+										</button>
+									</form>
+								</td>
+							</tr>
+
+							{% set totalDiscountedPrice = totalDiscountedPrice + (cartItem.product.getPriceAfterDiscount() * cartItem.quantity) %}
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+
+			<div class="mb-2">
+				<strong>Total Quantity:</strong>
+				{{ totalQuantity() }}
+			</div>
+
+			<div class="mb-3">
+				<strong>Delivery Cost:</strong>
+				{{ deliveryCost() }}€
+			</div>
+
+			<div class="mb-3">
+				<strong>Total Price:</strong>
+				{{ totalPrice() }}€
+			</div>
+
+			<button class="btn btn-danger" onclick="clearCart()">Empty Cart</button>
+			<a href="{{ path('app_customer_order') }}" class="btn btn-primary">Place Order</a>
+
+		</div>
+	{% endif %}
+{% endblock %}

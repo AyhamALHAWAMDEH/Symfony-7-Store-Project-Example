@@ -1,0 +1,383 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home page
+{% endblock %}
+
+{% block body %}
+
+	<style>
+		.hero-home {
+			padding-top: 125px;
+			padding-bottom: 125px;
+			background-image: url('../images/hero_image.png');
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+
+		h1 {
+			font-size: 58px;
+			line-height: 60px;
+			color: #fff;
+			font-weight: 700;
+			padding-left: 100px;
+		}
+
+		h1 span {
+			color: #EEE029;
+		}
+
+		.lead {
+			color: #fff;
+			font-size: 18px;
+			padding-left: 100px;
+			margin-top: 24px;
+			margin-bottom: 24px;
+		}
+
+		.btn-collection {
+			margin-left: 100px;
+			background-color: #EEE029;
+			color: #491C52;
+			border: none;
+			font-weight: 700;
+			padding: 10px 20px;
+		}
+
+		.btn-collection:hover {
+			background-color: #491C52;
+			color: #EEE029;
+		}
+
+		h2 {
+			font-size: 42px;
+			color: #491C52;
+
+
+		}
+
+		h4 {
+			font-weight: 700;
+
+		}
+
+		.p-collection {
+			font-size: 18px;
+			color: #222222;
+			margin-bottom: 48px;
+		}
+
+		.btn-product {
+			background-color: #491C52;
+			border: none;
+			color: #fff;
+		}
+
+		.btn-product:hover {
+			background-color: #BFAEC6;
+			color: #491C52;
+			font-weight: 600;
+		}
+		.card {
+			padding-bottom: 18px;
+		}
+
+		.title3 {
+
+			line-height: 48px;
+		}
+
+		.text3 {
+			font-size: 18px;
+			color: #222222;
+		}
+
+		.btn-info {
+
+			margin-top: 48px;
+			background-color: #EEE029;
+			color: #491C52;
+			border: none;
+			font-weight: 700;
+			padding: 10px 20px;
+
+		}
+
+		.btn-info:hover {
+			background-color: #491C52;
+			color: #EEE029;
+		}
+
+		h3 {
+			font-family: 'Josefin Sans', sans-serif !important;
+			font-size: 34px;
+			color: #491C52;
+		}
+
+		.section5 {
+			padding: 100px 125px;
+			background-color: #F3AE59;
+		}
+
+		.btn-news {
+			background-color: #222222;
+			color: #fff;
+			border: none;
+			font-weight: 700;
+			padding: 10px 20px;
+			margin-top: 24px;
+		}
+
+		.btn-news:hover {
+			background-color: #fff;
+			color: #222222;
+		}
+
+		.form-group {
+			border: none;
+		}
+
+		.testimonial-img {
+			width: 100px;
+			height: 100px;
+			object-fit: cover;
+			margin-right: 15px;
+		}
+
+		.star {
+			color: #F3AE59;
+		}
+
+
+		@media screen and(max-width: 768px) {
+			h1,
+			.lead,
+			.btn-collection {
+				padding-left: 0;
+				margin-left: 0;
+			}
+			.section5 {
+				padding: 50px;
+			}
+		}
+	</style>
+
+	<!-- Section 1 -->
+	<div class="container-fluid hero-home">
+		<div class="row">
+			<div class="col-12 col-sm-6">
+				<h1 class="display-4">
+					Refined Style
+					<span>...</span>
+				</h1>
+				<h1>Your destination for high-end women's fashion</h1>
+				<p class="lead">Discover a universe of style, sophistication and glamour with our exquisite collection
+					                of women's clothing. At Refined Style, we believe that good style starts with a good
+					                selection. That's why we offer a complete range of high-quality women's clothing, from
+					                casual chic to spectacular evening fashion.</p>
+				<a href="#" class="btn btn-primary btn-collection btn-lg btn-sm">Explore our collection</a>
+
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Section 2 -->
+	<div class="container mt-5">
+		<div class="row">
+			<div class="col-12">
+				<h2 class="display-4 text-center">Discover our collections</h2>
+				<p class="text-center p-collection">Our carefully selected range of women's clothing offers
+					                something for every style. Whether you are looking for casual outfits for everyday, elegant
+					                work clothes or the perfect dress for a special evening, you will find what you are
+					                looking for in our collections.</p>
+			</div>
+
+			<!-- Product 1 -->
+			<div class="col-sm-12 col-md-4 mb-3">
+				<div class="card">
+					<img src="{{ asset('images/product1.jpg') }}" class="card-img-top" alt="Product 1">
+					<div class="card-body">
+						<h4 class="card-title">Givenchy Boots</h4>
+						<p class="card-text">Gucci</p>
+						<p class="card-text">Description of item 1.</p>
+						<p class="card-text">450.00 €</p>
+						<a href="#" class="btn btn-primary btn-product">See the product</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Product 2 -->
+			<div class="col-sm-12 col-md-4 mb-3">
+				<div class="card">
+					<img src="{{ asset('images/product2.jpg') }}" class="card-img-top" alt="Product 2">
+					<div class="card-body">
+						<h4 class="card-title">GG sunglasses</h4>
+						<p class="card-text">Gucci</p>
+						<p class="card-text">Description of item 2.</p>
+						<p class="card-text">450.00 €</p>
+						<a href="#" class="btn btn-primary btn-product">See the product</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Product 3 -->
+			<div class="col-sm-12 col-md-4 mb-3">
+				<div class="card">
+					<img src="{{ asset('images/product3.jpg') }}" class="card-img-top" alt="Product 3">
+					<div class="card-body">
+						<h4 class="card-title">Cassandre Matelassé</h4>
+						<p class="card-text">Gucci</p>
+						<p class="card-text">Description of item 3.</p>
+						<p class="card-text">450.00 €</p>
+						<a href="#" class="btn btn-primary btn-product">See the product</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="text-center">
+			<a href="#" class="btn btn-primary mb-5 mt-5 btn-collection">All our collections
+			</a>
+
+		</div>
+	</div>
+
+	<!-- Section 3 -->
+	<div class="container mt-5 ">
+		<div class="row align-items-center">
+			<div
+				class="col-12 col-md-6">
+				<!-- Image can go here -->
+				<img src="{{ asset('images/section3.jpg') }}" alt="Image Description" class="img-fluid">
+			</div>
+			<div class="col-12 col-md-6">
+				<h2 class="title3">Our commitment to quality and elegance</h2>
+				<p class="text3">At Refined Style, we are passionate about high quality women's fashion. Each piece in our collections is carefully selected, with a focus on durability, comfort and style. We are committed to providing you with an exceptional shopping experience, with clothes that will make you feel beautiful and confident.</p>
+				<a href="#" class="btn btn-primary btn-info">More details</a>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Section 4 -->
+	<div class="container mt-5 text-center">
+		<div class="row">
+			<div class="col-12">
+				<h2 class="mt-2">Our Partner Brands</h2>
+				<p class="text3">We are proud to collaborate with some of the most recognized and respected brands in the fashion industry. Through these partnerships, we are able to offer you a varied and high quality range of styles and looks. Discover our partner brands and find your new favorite outfit.</p>
+			</div>
+		</div>
+		<div
+			class="row justify-content-center">
+			<!-- The image paths need to be replaced with the actual image paths -->
+			<div class="col-6 col-md-3 align-middle">
+				<img src="{{ asset('images/Burberry.png') }}" class=" mb-3" alt="logo1" height="100px">
+			</div>
+			<div class="col-6 col-md-3 text-center align-middle">
+				<img src="{{ asset('images/Dolce-Gabbana.png') }}" class=" mb-3" alt="logo2" height="100px">
+			</div>
+			<div class="col-6 col-md-3 text-center align-middle">
+				<img src="{{ asset('images/Givenchy.png') }}" class=" mb-3" alt="logo3" height="100px">
+			</div>
+			<div class="col-6 col-md-3 align-middle">
+				<img src="{{ asset('images/gucci.png') }}" class=" mb-3" alt="logo4" height="100px">
+			</div>
+			<div class="col-6 col-md-3">
+				<img src="{{ asset('images/HM.png') }}" class="mb-3" alt="logo5" height="100px">
+			</div>
+			<div class="col-6 col-md-3">
+				<img src="{{ asset('images/Lacoste.png') }}" class="mb-3" alt="logo6" height="100px">
+			</div>
+			<div class="col-6 col-md-3">
+				<img src="{{ asset('images/Valentino.png') }}" class="mb-3" alt="logo7" height="100px">
+			</div>
+			<div class="col-6 col-md-3">
+				<img src="{{ asset('images/zara.png') }}" class="mb-3" alt="logo8" height="100px">
+			</div>
+		</div>
+
+	</div>
+
+
+	<!-- Section 5 -->
+	<div class="container-fluid mt-5 section5">
+		<div class="row align-items-center">
+			<div class="col-12 col-md-6">
+				<h3>Stay Updated with Refined Style</h3>
+				<p>Subscribe to our newsletter to be the first to know about our new collections, special events, and exclusive promotions. Join our fashion community and never miss a style moment with Refined Style.</p>
+			</div>
+			<div class="col-12 col-md-6">
+				<form class="form-inline justify-content-center justify-content-md-end">
+					<div class="form-group mb-2">
+						<label for="emailInput" class="sr-only">Email</label>
+						<input type="email" class="form-control" id="emailInput" placeholder="Your email">
+					</div>
+					<button type="submit" class="btn btn-primary mb-2 ml-2 btn-news">Subscribe</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Section 6 -->
+	<div class="container mt-5">
+		<div class="row">
+			<div class="col-12 text-center">
+				<h2>What Our Customers Say About Us</h2>
+				<p class="text3">We love our customers and we're thrilled they love us too! Read testimonials from our satisfied customers and discover why they choose Refined Style for their fashion needs.</p>
+			</div>
+		</div>
+		<div
+			class="row align-items-center mt-4">
+			<!-- Testimonial 1 -->
+			<div class="col-12 col-md-6 d-flex">
+				<img class="testimonial-img rounded-circle" src="{{ asset('images/client1.jpg') }}" alt="Customer Name">
+				<div class="card mb-4">
+					<div class="card-body">
+						<p class="mb-0">"I am totally in love with the clothes I bought from Refined Style. They have exceptional quality and very chic style. I always receive compliments whenever I wear their pieces. I can't wait to see their new collections!"</p>
+						<small>
+							<span class="star">★★★★</span>★ - Jean Moreau</small>
+					</div>
+				</div>
+			</div>
+			<!-- Testimonial 2 -->
+			<div class="col-12 col-md-6 d-flex">
+				<img class="testimonial-img rounded-circle" src="{{ asset('images/client2.jpg') }}" alt="Customer Name">
+				<div class="card mb-4">
+					<div class="card-body">
+						<p class="mb-0">"The customer service at Refined Style is really amazing. They helped answer all my questions and solve my issues quickly. Plus, their clothes are always fashionable and comfortable. It has become my favorite store for women's clothing."</p>
+						<small>
+							<span class="star">★★★</span>★★ - Marie Dupont</small>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+	<footer class="py-3" style="background-color: #222222;">
+		<div class="container-fluid">
+			<ul class="nav justify-content-center border-bottom pb-3 mb-3">
+				<li class="nav-item">
+					<a href="{{ path('app_categories') }}" class="nav-link px-2" style="color: #fff;">Collections</a>
+				</li>
+				<li class="nav-item">
+					<a href="{{ path('app_products') }}" class="nav-link px-2" style="color: #fff;">Products</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link px-2" style="color: #fff;">Offers</a>
+				</li>
+				<li class="nav-item">
+					<a href="{{ path('contact') }}" class="nav-link px-2" style="color: #fff;">Contact</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link px-2" style="color: #fff;">About</a>
+				</li>
+			</ul>
+			<p class="text-center" style="color: #fff;">
+				All rights reserved &copy; 2023</p>
+		</div>
+	</footer>
+
+
+{% endblock %}

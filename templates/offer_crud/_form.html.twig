@@ -1,0 +1,43 @@
+
+<div class="container">
+    {{ form_start(form) }}
+    <style>
+        .btn-collection {
+            background-color: #EEE029;
+            color: #491C52;
+            border: none;
+            font-weight: 700;
+            padding: 10px 20px;
+        }
+
+        .btn-collection:hover {
+            background-color: #491C52;
+            color: #EEE029;
+        }
+    </style>
+
+    <div class="my-3">
+        <label for="">Type of Offer</label>
+        {{ form_row(form.type, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="my-3">
+        <label for="">Value of Offer</label>
+        {{ form_row(form.value, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="my-3">
+        <label for="">Start Date</label>
+        {{ form_row(form.startDate, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="my-3">
+        <label for="">End Date</label>
+        {{ form_row(form.endDate, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+ 
+
+    <button class="btn btn-primary btn-collection btn-lg btn-sm mb-3">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+</div>

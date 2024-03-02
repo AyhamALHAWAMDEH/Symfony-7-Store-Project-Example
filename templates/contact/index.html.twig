@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact
+{% endblock %}
+
+{% block body %}
+	<style>
+    .btn-send {
+    background-color: #EEE029;
+    color: #491C52;
+    border: none;
+    font-weight: 700;
+    padding: 10px 20px;
+}
+
+.btn-send:hover {
+    background-color: #491C52;
+    color: #EEE029;
+}
+    </style>
+<div class="container mt-3">
+    <h2 class="text-center">CONTACT FORM</h2>
+    <p class="text-center mb-4">Please complete our contact form to allow us to respond quickly to all your questions, requests and suggestions.</p>
+
+    <form action="{{ path('contact') }}" method="post" class="contact-form">
+        {{ form_start(form) }}
+        
+        <div class="mb-3">
+            {{ form_row(form.name, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_row(form.email, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_row(form.subject, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_row(form.message, { 'attr': {'class': 'form-control', 'rows': '5'} }) }}
+        </div>
+        
+        <button type="submit" class="btn btn-primary mb-3 btn-send">Send</button>
+        
+        {{ form_end(form) }}
+    </form>
+</div>
+
+
+{% endblock %}

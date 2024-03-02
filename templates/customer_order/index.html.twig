@@ -1,0 +1,272 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Order
+{% endblock %}
+
+{% block body %}
+
+	<style>
+		#cardDetails {
+
+			width: 350px;
+			margin: 0 auto; /* This will center the card if its parent container is flex or grid */
+		}
+
+		#paypal-checkout-btn {
+			width: 350px;
+			margin-left: auto;
+			margin-right: auto;
+			display: block;
+		}
+	</style>
+
+	<h1 class="container my-3 text-center">
+		Preparing the order
+	</h1>
+	<div class="container my-3">
+		<h2>1. Delivery Address</h2>
+
+		{% if addresses|length > 0 %}
+			<form id="checkout-form" method="post" action="{{ path('app_process_order') }}">
+
+				<div class="form-group">
+					<div class="row">
+						<!-- Begin row -->
+
+						<!-- Display the first address -->
+							<div class="col-12 mb-3"> <div class="d-flex align-items-center">
+								<div class="custom-control custom-radio mr-3">
+									<input type="radio" id="address-1" name="selectedAddress" class="custom-control-input" value="{{ addresses[0].id }}">
+									<label class="custom-control-label" for="address-1"></label>
+								</div>
+
+								<div class="card flex-grow-1">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-sm-6">
+												<p>
+													<strong>
+														{{ addresses[0].firstName }}
+														{{ addresses[0].lastName }}
+													</strong>
+												</p>
+												<p>
+													<strong>City:</strong>
+													{{ addresses[0].city }}</p>
+												<p>
+													<strong>Postal Code:</strong>
+													{{ addresses[0].postalCode }}</p>
+											</div>
+
+											<div class="col-sm-6">
+												<p>
+													<strong>Street Address:</strong>
+													{{ addresses[0].streetAddress }}</p>
+												<p>
+													<strong>Address Complement:</strong>
+													{{ addresses[0].addressComplement }}</p>
+												<p>
+													<strong>Phone Number:</strong>
+													{{ addresses[0].phoneNumber }}</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						{# Other addresses (if they exist) #}
+						{% if addresses|length > 1 %}
+							<div class="col-12 mb-3">
+								<button id="toggleAddresses" class="btn btn-link">+ Your other addresses</button>
+								<div id="otherAddresses" style="display: none;">
+									{% for address in addresses|slice(1) %}
+										<div class="col-12 mb-3">
+											<div class="d-flex align-items-center">
+												<div class="custom-control custom-radio mr-3">
+													<input type="radio" id="address-{{ loop.index+1 }}" name="selectedAddress" class="custom-control-input" value="{{ address.id }}">
+													<label class="custom-control-label" for="address-{{ loop.index+1 }}"></label>
+												</div>
+
+												<div class="card flex-grow-1">
+													<div class="card-body">
+														<div class="row">
+															<div class="col-sm-6">
+																<p>
+																	<strong>
+																		{{ address.firstName }}
+																		{{ address.lastName }}
+																	</strong>
+																</p>
+																<p>
+																	<strong>City:</strong>
+																	{{ address.city }}</p>
+																<p>
+																	<strong>Postal Code:</strong>
+																	{{ address.postalCode }}</p>
+															</div>
+
+															<div class="col-sm-6">
+																<p>
+																	<strong>Street Address:</strong>
+																	{{ address.streetAddress }}</p>
+																<p>
+																	<strong>Address Complement:</strong>
+																	{{ address.addressComplement }}</p>
+																<p>
+																	<strong>Phone Number:</strong>
+																	{{ address.phoneNumber }}</p>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									{% endfor %}
+								</div>
+							</div>
+						{% endif %}
+
+					</div>
+					<!-- End row -->
+				</div>
+
+				<div class="d-flex justify-content-end">
+					<a href="{{ path('app_address_index') }}" class="btn btn-info">Manage My Addresses</a>
+
+				</div>
+
+				<div id="paymentSection" style="display: none;">
+					<hr>
+					<h2>2. Payment method</h2>
+
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="paymentMethod" id="stripePayment" value="Stripe"/>
+						<label class="form-check-label" for="stripePayment">
+							Stripe payment
+						</label>
+					</div>
+
+					<div class="form-check mb-4">
+						<input class="form-check-input" type="radio" name="paymentMethod" id="paypalPayment" value="PayPal"/>
+						<label class="form-check-label" for="paypalPayment">
+							Paypal payment
+						</label>
+					</div>
+
+
+					<button id="cardDetails" type="submit" class="btn btn-primary proceed-to-checkout">proceed to checkout</button>
+
+					<!-- PayPal Button Container -->
+					<div id="paypal-button"></div>
+
+				</form>
+				<div id="cardErrors" role="alert" style="color: red;"></div>
+			</div>
+		{% else %}
+			<p>No addresses available yet.</p>
+			<a href="{{ path('app_address_new') }}" class="btn btn-primary">Add Address</a>
+		{% endif %}
+
+
+	</div>
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+	<script src="https://js.stripe.com/v3/"></script>
+<!-- هنا انتبه اضفنا الكرنسي باليورو ضمن الرابط بشكل دائم بسبب خطأ مستمر -->
+ <script src="https://www.paypal.com/sdk/js?currency=EUR&client-id=AeZnxFgVpa0HXlOKZIBst7sTjNlKL-r-yRLM0FwGl66JX1t70vTv_eO7A1Jy6XcgI9ZJJpr5WhomBA5g"></script>	<!-- Replace with your PayPal client ID -->
+
+	<script>
+
+	document.addEventListener("DOMContentLoaded", function() {
+    var stripe = Stripe("pk_test_51N2FUZDo2xSV6uR1EiXx5veg3Z3w8WUZrtsszdX2aDa95DzcFNfaTDIRkE0DRGLYTYRxzUVshXwE1VuqDCc2vbpb001jImPTdE");
+    let currentOrderId;
+
+    async function processAndCreateSession (paymentMethod) {
+        // Validate form data
+        var form = document.querySelector('form');
+        if (!form.checkValidity()) {
+            alert("Form is not valid, please correct the errors and submit again.");
+            return;
+        }
+
+        var totalPriceFromServer = "{{ total_price }}"; // Value set from the server
+
+        // Collect form data
+        var formData = new FormData(form);
+
+        // Convert it to a JSON object
+        var formObject = {};
+        formData.forEach((value, key) => {
+            formObject[key] = value;
+        });
+
+        formObject["totalPrice"] = totalPriceFromServer;
+
+        let response;
+        try {
+            // Common code for processing order
+            response = await fetch("/process-order", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: new URLSearchParams(formObject)
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                currentOrderId = data.orderId; // Save the current order ID
+                console.log("Order ID received:", currentOrderId);
+            } else {
+                console.log("Error in process-order response");
+            }
+
+            // Handling Stripe
+            if (paymentMethod === 'Stripe') {
+                response = await fetch("/create-stripe-session", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({totalPrice: totalPriceFromServer})  // Send the total price to the server
+                });
+
+                if (!response.ok) {
+                    alert("Could not create Stripe session. Please try again.");
+                    return;
+                }
+
+                const session = await response.json();
+
+                // Open Stripe checkout
+                const result = await stripe.redirectToCheckout({
+                    sessionId: session.id,
+                });
+
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            }
+
+           
+
+        } catch (error) {
+            console.error("There was an error:", error);
+        }
+    }
+
+   
+    // Bind the payment button to create Stripe session and open the checkout
+    document.querySelector(".proceed-to-checkout").addEventListener("click", function(e) {
+        e.preventDefault(); // Prevent form from submitting automatically
+        processAndCreateSession('Stripe');
+    });
+});
+	
+	</script>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Offer index
+{% endblock %}
+
+{% block body %}
+
+	<style>
+		a {
+			color: #491C52;
+			text-decoration: none;
+		}
+
+		.btn-new {
+			background-color: #EEE029;
+			color: #491C52;
+			border: none;
+			font-weight: 700;
+			padding: 10px 20px;
+		}
+
+		.btn-new:hover {
+			background-color: #491C52;
+			color: #EEE029;
+		}
+	</style>
+	
+	<div class="container my-3 py-3">
+
+		<h1>Offer index</h1>
+		<div class="scrollable-table">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Type</th>
+						<th>Value</th>
+						<th>StartDate</th>
+						<th>EndDate</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for offer in offers %}
+						<tr>
+							<td>{{ offer.id }}</td>
+							<td>{{ offer.type }}</td>
+							<td>{{ offer.value }}</td>
+							<td>{{ offer.startDate ? offer.startDate|date('d-m-Y') : '' }}</td>
+							<td>{{ offer.endDate ? offer.endDate|date('d-m-Y') : '' }}</td>
+							<td>
+								<a href="{{ path('app_offer_crud_show', {'id': offer.id}) }}" data-toggle="tooltip" data-placement="top" title="Show">
+									<i class="far fa-eye"></i>
+								</a>
+								<a href="{{ path('app_offer_crud_edit', {'id': offer.id}) }}" class="mx-2" data-toggle="tooltip" data-placement="top" title="Edit">
+									<i class="fas fa-edit"></i>
+								</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="6">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<a href="{{ path('app_offer_crud_new') }}" class="btn btn-primary btn-new btn-lg btn-sm mt-3">Create new</a>
+	</div>
+{% endblock %}

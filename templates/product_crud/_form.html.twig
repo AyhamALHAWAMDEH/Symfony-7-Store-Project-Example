@@ -1,0 +1,67 @@
+<div class="container">
+	{{ form_start(form) }}
+	<style>
+		.btn-collection {
+			background-color: #EEE029;
+			color: #491C52;
+			border: none;
+			font-weight: 700;
+			padding: 10px 20px;
+		}
+
+		.btn-collection:hover {
+			background-color: #491C52;
+			color: #EEE029;
+		}
+	</style>
+
+	<div class="my-3">
+		<label for="">Category Name</label>
+		{{form_row(form.category, {'attr':{'class':'form-control'}})}}
+	</div>
+
+	<div class="my-3">
+		<label for="">Product Name</label>
+		{{form_row(form.productName, {'attr':{'class':'form-control'}})}}
+	</div>
+
+	<div class="my-3">
+		<label for="">Product Price</label>
+		{{form_row(form.productPrice, {'attr':{'class':'form-control'}})}}
+	</div>
+
+	<div class="my-3">
+		<label for="">Short Description</label>
+		{{form_row(form.shortDescription, {'attr':{'class':'form-control'}})}}
+	</div>
+
+	<div class="my-3">
+		<label for="">Long Description</label>
+		{{form_row(form.longDescription, {'attr':{'class':'form-control'}})}}
+	</div>
+
+	<div class="my-3">
+		<label for="">Product Brand</label>
+		{{form_row(form.productBrand, {'attr':{'class':'form-control'}})}}
+	</div>
+
+	<div class="my-3">
+		<label for="">Product Origin</label>
+		{{form_row(form.productOrigin, {'attr':{'class':'form-control'}})}}
+	</div>
+
+	<div class="my-3">
+		<label for="">Product Image</label>
+		{{form_row(form.productImage, {'attr':{'class':'form-control'}})}}
+	</div>
+
+
+	<div class="my-3">
+		<label for="">Type of offer</label>
+		{{form_row(form.offer, {'attr':{'class':'form-control'}})}}
+	</div>
+
+
+	<button class="btn btn-primary btn-collection btn-lg btn-sm mb-3">{{ button_label|default('Save') }}</button>
+	{{ form_end(form) }}
+</div>

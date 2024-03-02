@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product details
+{% endblock %}
+{% block body %}
+
+	<style>
+
+		body {
+			background-color: #ecedee
+		}
+		.card {
+			border: none;
+			overflow: hidden
+		}
+
+		.main_image {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		@media(max-width: 767px) {
+			.main_image img {
+				margin-top: 30px;
+			}
+		}
+	</style>
+
+	<div class="container mt-5 mb-5">
+		<div class="card">
+			<div class="row g-0">
+				<div class="col-md-6 border-end main_image">
+
+
+					<img src="{{asset('uploads/'~product.productImage)}}" width="400">
+
+
+				</div>
+				<div class="col-md-6">
+					<div class="p-3 right-side">
+						<div class="my-3">
+							<h3>{{ product.productName }}</h3>
+						</div>
+						<div class="my-3">
+							{{ product.productBrand }}
+						</div>
+						<div class="my-3">
+							{{ product.productOrigin }}
+						</div>
+						<h3>€{{ product.productPrice }}</h3>
+						<div class="my-3">
+							<p>{{ product.longDescription | raw }}</p>
+						</div>
+						<div class="buttons d-flex flex-row my-5 gap-3">
+							<button class="btn btn-outline-dark">Add to cart</button>
+							<a href="{{ path('app_products') }}" class="btn btn-dark">Back to products</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer class="py-3" style="background-color: #222222;">
+		<div class="container-fluid">
+			<ul class="nav justify-content-center border-bottom pb-3 mb-3">
+				<li class="nav-item">
+					<a href="#" class="nav-link px-2" style="color: #fff;">Collections</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link px-2" style="color: #fff;">Products</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link px-2" style="color: #fff;">Offers</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link px-2" style="color: #fff;">Contact</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link px-2" style="color: #fff;">About</a>
+				</li>
+			</ul>
+			<p class="text-center" style="color: #fff;">
+				All rights reserved &copy; 2023</p>
+		</div>
+	</footer>
+
+{% endblock %}

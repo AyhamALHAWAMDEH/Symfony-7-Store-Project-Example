@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All orders
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		.page-title {
+			text-align: center;
+			padding: 20px 0;
+		}
+		.order-card {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			border: 1px solid #ddd;
+			padding: 10px;
+			margin: 10px 0;
+		}
+		.order-details {
+			color: inherit;
+			text-decoration: none;
+			cursor: pointer;
+			transition: color 0.3s, transform 0.3s;
+		}
+		.order-details:hover {
+			color: #555;
+			transform: scale(1.1);
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+	<div class="container my-3">
+		<h1 class="page-title">All Orders</h1>
+
+		{% for order in orders %}
+			<div class="order-card">
+				<span>
+					<strong>{{ order.orderNumber }}</strong>
+				</span>
+				<span>
+					<strong>Date of order:</strong>
+					{{ order.orderDate|date('d-m-Y') }}</span>
+				<span>
+					<strong>Quantity:</strong>
+					{{ order.totalQuantity }}</span>
+				<a href="{{ path('admin_order_details', {'orderId': order.id}) }}" class="order-details">Order Details</a>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

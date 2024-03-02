@@ -1,5 +1,7 @@
 twig:
     file_name_pattern: '*.twig'
+    paths:
+        "%kernel.project_dir%/vendor/knplabs/knp-paginator-bundle/templates": KnpPaginator
 
 when@test:
     twig:

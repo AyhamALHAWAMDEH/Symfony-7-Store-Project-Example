@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Category
+{% endblock %}
+
+{% block body %}
+
+	<style>
+		a {
+			color: #491C52;
+			text-decoration: none;
+		}
+	</style>
+
+	<div class="container my-3 py-3">
+
+		<h1>Create new Category</h1>
+
+		{{ include('category_crud/_form.html.twig') }}
+
+		<a href="{{ path('app_category_crud_index') }}">
+			<i class="fas fa-reply"></i>
+			back to list</a>
+
+	</div>
+{% endblock %}

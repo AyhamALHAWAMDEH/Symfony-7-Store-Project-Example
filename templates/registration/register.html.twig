@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+<style>
+    .register-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .card-register {
+        width: 350px; /* قم بتعديل العرض حسب رغبتك */
+        border: none;
+        box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+    }
+
+    .btn-register {
+        background-color: #EEE029;
+        color: #491C52;
+        border: none;
+        font-weight: 700;
+        padding: 10px 20px;
+    }
+
+    .btn-register:hover {
+        background-color: #491C52;
+        color: #EEE029;
+    }
+</style>
+
+<div class="register-container">
+    <div class="card card-register">
+        <div class="card-body">
+            <h1 class="h3 mb-3 font-weight-normal text-center">Register</h1>
+            {{ form_start(registrationForm) }}
+                <div class="my-3">
+                    <label for="">First name</label>
+                    {{form_row(registrationForm.firstName, {'attr':{'class':'form-control'}})}}
+                </div>
+                <div class="my-3">
+                    <label for="">Last name</label>
+                    {{form_row(registrationForm.lastName, {'attr':{'class':'form-control'}})}}
+                </div>
+                <div class="my-3">
+                    <label for="">Email</label>
+                    {{form_row(registrationForm.email, {'attr':{'class':'form-control'}})}}
+                </div>
+                <div class="my-3">
+                    <label for="">Password</label>
+                    {{form_row(registrationForm.plainPassword, {'attr':{'class':'form-control'}})}}
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-register btn-lg btn-sm mb-3">Register</button>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

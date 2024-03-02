@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category details
+{% endblock %}
+
+{% block body %}
+
+	<style>
+		.fav-icon {
+			color: #c492b1;
+		}
+
+		.fav-icon:hover {
+			color: #c52491;
+		}
+
+		.shopping-icon {
+			color: #9b87b7;
+		}
+
+		.shopping-icon:hover {
+			color: #491c52;
+		}
+
+
+		.info-icon {
+			color: #222222;
+
+		}
+
+		.info-icon:hover {
+			color: #d1c522;
+		}
+	</style>
+
+	<div class="container-fluid ">
+		<div class="row">
+			<h4 class="title-filter text-center mt-3">Products</h4>
+			{% for product in products %}
+				<div class="col-md-4 mb-4">
+					<div class="card">
+						<img src="{{asset('uploads/'~product.productImage)}}" class="card-img-top" alt="{{ product.productName }}">
+						<div class="card-body">
+							<p class="card-title">
+								<strong>{{ product.category }}</strong>
+							</p>
+							<h5 class="card-text">{{ product.productName }}</h5>
+							<p class="card-text">{{ product.productBrand }}
+								/
+								{{ product.productOrigin }}</p>
+							<p class="card-text">
+								<strong>{{ product.productPrice }}€</strong>
+							</p>
+							<p class="card-text">{{ product.shortDescription }}</p>
+
+							<div class="d-flex justify-content-between mt-3">
+								<a class="shopping-icon" href="#" title="Add to Cart">
+									<i class="fas fa-shopping-cart"></i>
+								</a>
+								<a class="fav-icon" href="#" title="Add to Favorites">
+									<i class="fas fa-heart"></i>
+								</a>
+								<a class="info-icon" href="{{ path('app_product_details', {'id': product.id}) }}" title="View Details">
+									<i class="fas fa-info-circle"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+
+		</div>
+	</div>
+
+{% endblock %}

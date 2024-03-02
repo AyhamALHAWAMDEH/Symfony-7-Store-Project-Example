@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Order Details{% endblock %}
+
+{% block body %}
+	<div class="container my-3">
+		<h2 class="text-dark text-center mb-3">{{ order.orderNumber }}</h2>
+
+		<div class="row"> <!-- Start of Bootstrap Row -->
+			<div class="col-md-6 mb-3"> <!-- Column for Order Details Card -->
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title"><strong>Order Details</strong></h5>
+						<p>Order Date: {{ order.orderDate|date('Y-m-d') }}</p>
+						<p>Order Status: {{ order.orderStatus }}</p>
+						<p>Total Price: {{ order.totalPrice }} €</p>
+						<p>Total Quantity: {{ order.totalQuantity }}</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6 "> <!-- Column for Shipping Address Card -->
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title"><strong>Delivery Address</strong> </h5>
+						<p>{{ orderAddress.firstName }} {{ orderAddress.lastName }}</p>
+						<p>{{ orderAddress.streetAddress }}</p>
+						<p>{{ orderAddress.addressComplement }}</p>
+						<p>{{ orderAddress.postalCode }}, {{ orderAddress.city }}</p>
+						<p>{{ orderAddress.phoneNumber }}</p>
+					</div>
+				</div>
+			</div>
+		</div> <!-- End of Bootstrap Row -->
+
+		<div class="mt-5"> <!-- Margin Top 5 for spacing between Cards and Table -->
+								<h5 ><strong>Products of order: </strong></h5>
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Product Name</th>
+						<th>Quantity</th>
+						<th>Price</th>
+						<th>Discounted Price</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in order.orderItems %}
+						<tr>
+							<td>{{ item.productName }}</td>
+							<td>{{ item.quantity }}</td>
+							<td>{{ item.price }} €</td>
+							<td>{{ item.discountedPrice }} €</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

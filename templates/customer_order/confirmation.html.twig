@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Order Confirmation
+{% endblock %}
+
+{% block body %}
+	<style>
+		.btn-continue {
+			background-color: #EEE029;
+			color: #491C52;
+			border: none;
+			font-weight: 700;
+			padding: 10px 20px;
+		}
+
+		.btn-continue:hover {
+			background-color: #491C52;
+			color: #EEE029;
+		}
+	</style>
+
+	<div class="container my-5">
+		{% if order %}
+			<h2 class="text-center mb-5">Thank You for Your Order!</h2>
+
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div class="mb-4">
+						<h4>Order Details</h4>
+						<div class="d-flex justify-content-between">
+							<span>Order Number:</span>
+							<strong>{{ order.orderNumber }}</strong>
+						</div>
+						<div class="d-flex justify-content-between">
+							<span>Total Amount:</span>
+							<strong>{{ order.totalPrice }}
+								€</strong>
+						</div>
+						<div class="mt-3">
+							Your order is being processed and you will be informed about the delivery time within 24 hours via email.
+						</div>
+					</div>
+
+					<div class="mb-4 bg-light p-4 rounded">
+						<h4 class="mb-3">Delivery Address</h4>
+						<address>
+							{{ order.address.streetAddress }}<br>
+							{{ order.address.city }},
+							{{ order.address.postalCode }}<br>
+						</address>
+					</div>
+				</div>
+			</div>
+
+			<div class="text-center mt-5">
+				<a href="{{ path('app_default') }}" class="btn btn-outline-primary btn-continue">Continue Shopping</a>
+			</div>
+		{% else %}
+			<div class="alert alert-danger">
+				Order not found.
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}

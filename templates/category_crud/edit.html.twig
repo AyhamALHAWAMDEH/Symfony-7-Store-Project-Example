@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Category
+{% endblock %}
+
+{% block body %}
+
+	<style>
+
+		a {
+			color: #491C52;
+			text-decoration: none;
+			margin-right: 30px;
+		}
+	</style>
+
+
+	<div class="container my-3 py-3">
+		<h1>Edit Category</h1>
+
+		{{ include('category_crud/_form.html.twig', {'button_label': 'Update'}) }}
+
+		<div class="d-flex align-items-center">
+			<a href="{{ path('app_category_crud_index') }}">
+				<i class="fas fa-reply"></i>back to list</a>
+
+
+			{{ include('category_crud/_delete_form.html.twig') }}
+
+		</div>
+	</div>
+{% endblock %}

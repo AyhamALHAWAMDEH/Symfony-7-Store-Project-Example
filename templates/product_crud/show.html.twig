@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product
+{% endblock %}
+
+{% block body %}
+	<style>
+		a {
+			color: #491C52;
+			text-decoration: none;
+		}
+	</style>
+	<style>
+		a {
+			color: #491C52;
+			text-decoration: none;
+		}
+	</style>
+	<div class="container my-3 py-3">
+		<h1>Product</h1>
+
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Id</th>
+					<td>{{ product.id }}</td>
+				</tr>
+				<tr>
+					<th>ProductName</th>
+					<td>{{ product.productName }}</td>
+				</tr>
+				<tr>
+					<th>ProductPrice</th>
+					<td>{{ product.productPrice }}</td>
+				</tr>
+				<tr>
+					<th>ProductImage</th>
+					<td><img src="{{asset('uploads/'~product.productImage)}}" alt="" width="80"></td>
+				</tr>
+				<tr>
+					<th>ShortDescription</th>
+					<td>{{ product.shortDescription }}</td>
+				</tr>
+				<tr>
+					<th>LongDescription</th>
+					<td>{{ product.longDescription }}</td>
+				</tr>
+				<tr>
+					<th>ProductBrand</th>
+					<td>{{ product.productBrand }}</td>
+				</tr>
+				<tr>
+					<th>ProductOrigin</th>
+					<td>{{ product.productOrigin }}</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="d-flex align-items-center">
+			<a href="{{ path('app_product_crud_index') }}">
+				<i class="fas fa-reply"></i>back to list</a>
+
+			<a href="{{ path('app_product_crud_edit', {'id': product.id}) }}" class="mx-5" data-toggle="tooltip" data-placement="top" title="Edit">
+				<i class="fas fa-edit"></i>
+			</a>
+
+
+		</div>
+	</div>
+{% endblock %}

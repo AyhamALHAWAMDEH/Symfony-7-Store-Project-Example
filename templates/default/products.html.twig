@@ -1,0 +1,246 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Products
+{% endblock %}
+{% block body %}
+
+	<style>
+
+		.btn-collection {
+			background-color: #eee029;
+			color: #491c52;
+			border: none;
+			font-weight: 500;
+		}
+
+		.btn-collection:hover {
+			background-color: #491c52;
+			color: #eee029;
+		}
+
+		.fav-icon {
+			color: #c492b1;
+		}
+
+		.fav-icon:hover {
+			color: #c52491;
+		}
+
+		.shopping-icon {
+			color: #9b87b7;
+		}
+
+		.shopping-icon:hover {
+			color: #491c52;
+		}
+
+
+		.info-icon {
+			color: #222222;
+
+		}
+
+		.info-icon:hover {
+			color: #d1c522;
+		}
+
+		.navigation {
+			margin-top: 50px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.pagination {
+			--bs-pagination-color: #491c52;
+			--bs-pagination-hover-color: #491c52;
+			--bs-pagination-focus-color: #491c52;
+			--bs-pagination-active-bg: #491c52;
+			--bs-pagination-active-border-color: #491c52;
+			--bs-pagination-focus-box-shadow: none;
+		}
+	</style>
+
+
+	<div class="container-fluid ">
+		<div class="row">
+			<aside class="col-lg-2 col-md-4 col-sm-12 " style="background-color: #eee;">
+				<div class="filter-sidebar">
+					<h4 class="title-filter mt-3">Refine my selection</h4>
+
+
+					<form action="{{ path('app_products') }}" method="get" class="form-inline mb-3">
+						<div class="form-group mr-2 mb-3">
+							<label for="searchTerm">Search:</label>
+							<input type="text" class="form-control" name="searchTerm" id="searchTerm" value="{{ app.request.query.get('searchTerm') }}">
+						</div>
+
+						<div class="form-group mr-2 mb-3">
+							<label for="origin">Origin:</label>
+							<input type="text" class="form-control" name="origin" id="origin" value="{{ app.request.query.get('origin') }}">
+						</div>
+
+						<div class="form-group mr-2 mb-3">
+							<label for="brand">Brand:</label>
+							<input type="text" class="form-control" name="brand" id="brand" value="{{ app.request.query.get('brand') }}">
+						</div>
+
+						<div class="form-group mr-2 mb-3">
+							<label for="minPrice">Min Price:</label>
+							<input type="text" class="form-control" name="minPrice" id="minPrice" value="{{ app.request.query.get('minPrice') }}">
+						</div>
+
+						<div class="form-group mr-2 mb-3">
+							<label for="price">Max Price:</label>
+							<input type="text" class="form-control" name="maxPrice" id="maxPrice" value="{{ app.request.query.get('maxPrice') }}">
+						</div>
+
+						<div class="form-group mr-2 mb-3">
+							<label for="category">Category:</label>
+							<select name="category" class="form-control" id="category">
+								<option value="">Select a category</option>
+								{% for category in categories %}
+									<option value="{{ category.id }}" {{ app.request.query.get('category') == category.id ? 'selected' : '' }}>
+										{{ category.categoryName }}
+									</option>
+								{% endfor %}
+							</select>
+						</div>
+
+
+						<div class="form-group mr-2 mb-3">
+							<label for="order">Order:</label>
+							<select name="order" class="form-control">
+								<option value="asc">Ascending</option>
+								<option value="desc">Descending</option>
+							</select>
+						</div>
+
+						<div class="form-group mr-2 mb-3">
+							<label for="orderBy">Order By:</label>
+							<select name="orderBy" class="form-control">
+								<option value="productName">Product Name</option>
+								<option value="productBrand">Brand</option>
+								<option value="productPrice">Price</option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<input type="submit" value="Filter" class="btn btn-primary btn-collection">
+							<a href="{{ path('app_products') }}" class="btn btn-secondary">Reset</a>
+						</div>
+					</form>
+
+				</div>
+
+
+			</aside>
+
+
+			<div class="col-lg-10 col-md-8 col-sm-12 ">
+				<div class="row">
+					<h4 class="title-filter text-center mt-3">Products</h4>
+					{% for product in products %}
+						<div class="col-md-4 mb-4">
+							<div class="card">
+								<img src="{{asset('uploads/'~product.productImage)}}" class="card-img-top" alt="{{ product.productName }}">
+								<div class="card-body">
+									<p class="card-title">
+										<strong>{{ product.category }}</strong>
+									</p>
+									<h5 class="card-text">{{ product.productName }}</h5>
+									<p class="card-text">
+										<strong>{{ product.productPrice }}€</strong>
+
+									</p>
+									<div class="d-flex justify-content-between">
+
+										{% if product.offer %}
+											<p class="ml-2 px-2 bg-warning">{{ product.offer }}</p>
+											<p class="ml-2 px-2">
+												expires in
+												{{ product.offer.endDate|date("d-m-Y") }}</p>
+										{% endif %}
+									</div>
+
+									<p class="card-text">{{ product.shortDescription }}</p>
+
+
+									<div class="d-flex justify-content-between mt-3">
+										{% if product.id in productsInCart %}
+											<form method="post" action="{{ path('app_cart_remove', {'productId': product.id}) }}" class="ajax-form">
+												<button type="submit" class="btn btn-link remove-icon" title="Remove from Cart">
+													<i class="fas fa-minus-circle"></i>
+												</button>
+											</form>
+										{% else %}
+											<form method="post" action="{{ path('app_cart_add', {'productId': product.id}) }}" class="ajax-form">
+												<input type="hidden" name="quantity" value="1">
+												<button type="submit" class="btn btn-link shopping-icon" title="Add to Cart">
+													<i class="fas fa-shopping-cart"></i>
+												</button>
+											</form>
+										{% endif %}
+
+
+										{% if product.id in favoriteProducts %}
+											<form method="post" action="{{ path('app_favorite_remove', {'productId': product.id}) }}" class="ajax-form">
+												<button type="submit" class="btn btn-link remove-icon" title="Remove from Favorites">
+													<i class="fas fa-heart-broken"></i>
+												</button>
+											</form>
+										{% else %}
+											<form method="post" action="{{ path('app_favorite_add', {'productId': product.id}) }}" class="ajax-form">
+												<button type="submit" class="btn btn-link fav-icon" title="Add to Favorites">
+													<i class="fas fa-heart"></i>
+												</button>
+											</form>
+										{% endif %}
+
+										<a class="info-icon" href="{{ path('app_product_details', {'id': product.id}) }}" title="View Details">
+											<i class="fas fa-info-circle"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+
+				<div class="navigation">
+					{{ knp_pagination_render(products) }}
+				</div>
+
+
+			</div>
+
+		</div>
+	</div>
+
+
+	<footer class="py-3" style="background-color: #222222;">
+		<div class="container-fluid">
+			<ul class="nav justify-content-center border-bottom pb-3 mb-3">
+				<li class="nav-item">
+					<a href="#" class="nav-link px-2" style="color: #fff;">Collections</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link px-2" style="color: #fff;">Products</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link px-2" style="color: #fff;">Offers</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link px-2" style="color: #fff;">Contact</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link px-2" style="color: #fff;">About</a>
+				</li>
+			</ul>
+			<p class="text-center" style="color: #fff;">
+				All rights reserved &copy; 2023</p>
+		</div>
+	</footer>
+
+
+{% endblock %}
